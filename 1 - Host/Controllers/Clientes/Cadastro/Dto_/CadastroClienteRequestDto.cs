@@ -1,6 +1,6 @@
 ﻿namespace DesafioBackend.Controllers.Clientes.Cadastro
 {
-    public class ClienteRequestDto
+    public class CadastroClienteRequestDto
     {
         public string Nome { get; set; }
         public string Email { get; set; }

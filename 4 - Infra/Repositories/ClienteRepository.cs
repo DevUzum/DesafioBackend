@@ -19,12 +19,21 @@ namespace DesafioBackend.Repositories
             _desafioBackendContext.SaveChanges();
         }
 
-        public Cliente? GetCliente(string email)
+        public Cliente? ObterClientePorId(Guid id)
+        {
+            return _desafioBackendContext.Clientes?
+                .Where(x => x.Id == id)
+                .ToList()
+                .FirstOrDefault();
+        }
+
+        public Cliente? ObterClientePorEmail(string email)
         {
             return _desafioBackendContext.Clientes?
                 .Where(x => x.Email == email)
                 .ToList()
                 .FirstOrDefault();
         }
+
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface ICotacaoMoedaClient
     {
-        Task<USDBRL> ObterMoeda();
+        Task<Cotacao> ObterCotacaoDolar();
     }
 }

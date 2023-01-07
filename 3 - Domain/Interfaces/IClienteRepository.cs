@@ -6,6 +6,8 @@ namespace DesafioBackend.Interfaces
     {
         void AddAsync(Cliente cliente, CancellationToken cancellationToken);
 
-        Cliente? GetCliente(string email);
+        Cliente? ObterClientePorId(Guid id);
+
+        Cliente? ObterClientePorEmail(string email);
     }
 }

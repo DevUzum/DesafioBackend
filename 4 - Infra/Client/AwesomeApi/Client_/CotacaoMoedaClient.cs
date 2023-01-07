@@ -4,35 +4,21 @@ namespace DesafioBackend.Client.AwesomeApi
 {
     public class CotacaoMoedaClient : ICotacaoMoedaClient
     {
-        public CotacaoMoedaClient()
+        public async Task<Cotacao> ObterCotacaoDolar()
         {
+            HttpClient httpClient = new HttpClient();
 
-        }
+            var response = await httpClient.GetAsync("https://economia.awesomeapi.com.br/last/USD-BRL");
 
-        public async Task<USDBRL> ObterMoeda()
-        {
-            try
+            if (response.IsSuccessStatusCode)
             {
-                HttpClient httpClient = new HttpClient();
+                var jsonString = response.Content.ReadAsStringAsync().Result;
+                var jsonObject = JsonConvert.DeserializeObject<Cotacao>(jsonString);
 
-                var response = await httpClient.GetAsync("https://economia.awesomeapi.com.br/last/USD-BRL");
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var jsonString = await response.Content.ReadAsStringAsync();
-
-                    var jsonObject = JsonConvert.DeserializeObject<USDBRL>(jsonString);
-                    
-                    return jsonObject;
-                }
-
-                return new USDBRL();
-
+                return jsonObject;
             }
-            catch (Exception ex)
-            {
-                
-            }
+
+            return new Cotacao();
         }
     }
 }

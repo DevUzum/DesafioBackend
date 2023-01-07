@@ -13,9 +13,9 @@ namespace DesafioBackend.Services.Clientes.Cadastro
             _clienteRepository = clienteRepository;
         }
 
-        public async Task<Guid> CadastrarCliente(ClienteRequestDto clienteDto, CancellationToken cancellationToken)
+        public async Task<Guid> CadastrarCliente(CadastroClienteRequestDto clienteDto, CancellationToken cancellationToken)
         {
-            var clientesComMesmoEmail = _clienteRepository.GetCliente(clienteDto.Email);
+            var clientesComMesmoEmail = _clienteRepository.ObterClientePorEmail(clienteDto.Email);
 
             if (clientesComMesmoEmail != null)
             {
