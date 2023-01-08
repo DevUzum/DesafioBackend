@@ -20,7 +20,7 @@ namespace DesafioBackend.Cotacoes.ObterCotacaoDolar
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ObterCotacaoDolarResponseDto>> Post(
+        public async Task<ActionResult<ObterCotacaoDolarResponseDto>> Get(
             [FromRoute] Guid id, 
             CancellationToken cancellationToken)
         {
