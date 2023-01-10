@@ -1,4 +1,6 @@
-﻿using DesafioBackend.DI;
+﻿using DesafioBackend.Controllers.Clientes.Cadastro;
+using DesafioBackend.DI;
+using FluentValidation.AspNetCore;
 
 namespace DesafioBackend
 {
@@ -13,7 +15,7 @@ namespace DesafioBackend
 
         public void ConfigureService(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<CadastroClienteRequestDto>());
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
