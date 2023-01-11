@@ -1,5 +1,4 @@
-﻿using DesafioBackend.Client.AwesomeApi;
-using DesafioBackend.Interfaces;
+﻿using DesafioBackend.Services.Cotacoes.ObterCotacaoDolarComValor;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioBackend.Controllers.Cotacoes.ObterCotacaoDolarComValor
@@ -8,54 +7,22 @@ namespace DesafioBackend.Controllers.Cotacoes.ObterCotacaoDolarComValor
     [RouteTemplate("cliente")]
     public class ObterCotacaoDolarComValorController : ControllerBase
     {
-        private readonly ICotacaoMoedaClient _cotacaoMoedaClient;
-        private readonly IClienteRepository _clienteRepository;
+        private readonly IObterCotacaoDolarComValorService _obterCotacaoDolarComValorService;
 
-        public ObterCotacaoDolarComValorController(ICotacaoMoedaClient cotacaoMoedaClient, IClienteRepository clienteRepository)
+        public ObterCotacaoDolarComValorController(
+            IObterCotacaoDolarComValorService obterCotacaoDolarComValorService)
         {
-            _cotacaoMoedaClient = cotacaoMoedaClient;
-            _clienteRepository = clienteRepository;
+            _obterCotacaoDolarComValorService = obterCotacaoDolarComValorService;
         }
 
         [HttpPatch("{id}/cotacao")]
         public async Task<ActionResult<ObterCotacaoDolarComValorResponseDto>> Patch(
             [FromRoute] Guid id,
-            [FromBody] ObterCotacaoDolarRequestDto obterCotacaoDolarRequestDto,
+            [FromBody] ObterCotacaoDolarComValorRequestDto obterCotacaoDolarRequestDto,
             CancellationToken cancellationToken)
         {
-            var cotacao = await _cotacaoMoedaClient.ObterCotacaoDolar();
-
-            var cliente = _clienteRepository.ObterClientePorId(id);
-
-            var cotacaoDolar = Convert.ToDecimal(cotacao.Usdbrl.Bid, System.Globalization.CultureInfo.InvariantCulture);
-
-            var valorCotadoEmReais = obterCotacaoDolarRequestDto.ValorCotadoEmReais;
-
-            if (cliente != null)
-                return new ObterCotacaoDolarComValorResponseDto()
-                {
-                    Cliente = new ClienteDto()
-                    {
-                        Nome = cliente.Nome,
-                        Email = cliente.Email,
-                        Id = id
-                    },
-                    ValorCotadoEmReais = valorCotadoEmReais,
-                    ValorOriginal = GetValorOriginal(valorCotadoEmReais, cotacaoDolar),
-                    ValorComTaxa = GetValorComTaxa(valorCotadoEmReais, cotacaoDolar, cliente.MultiplicadorBase)
-                };
-
-            return NotFound();
-        }
-
-        private static decimal GetValorOriginal(decimal valorCotadoEmReais, decimal cotacaoDolar)
-        {
-            return valorCotadoEmReais / cotacaoDolar;
-        }
-
-        private static decimal GetValorComTaxa(decimal valorCotadoEmReais, decimal cotacaoDolar, decimal multiplicadorBase)
-        {
-            return (valorCotadoEmReais / cotacaoDolar) * multiplicadorBase;
+            return await _obterCotacaoDolarComValorService.ObterCotacaoDolarComValor(
+                id, obterCotacaoDolarRequestDto);
         }
     }
 }

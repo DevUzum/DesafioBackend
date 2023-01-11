@@ -13,7 +13,8 @@ namespace DesafioBackend.Services.Clientes.Cadastro
             _clienteRepository = clienteRepository;
         }
 
-        public async Task<Guid> CadastrarCliente(CadastroClienteRequestDto clienteDto, CancellationToken cancellationToken)
+        public async Task<Guid> CadastrarCliente(
+            CadastroClienteRequestDto clienteDto, CancellationToken cancellationToken)
         {
             var clientesComMesmoEmail = _clienteRepository.ObterClientePorEmail(clienteDto.Email);
 
@@ -23,8 +24,14 @@ namespace DesafioBackend.Services.Clientes.Cadastro
             }
             else
             {
-                var cliente = await Cliente.Criar(Guid.NewGuid(), clienteDto.Nome, clienteDto.Email, clienteDto.MultiplicadorBase);
+                var cliente = await Cliente.Criar(
+                    Guid.NewGuid(), 
+                    clienteDto.Nome, 
+                    clienteDto.Email, 
+                    clienteDto.MultiplicadorBase);
+
                 _clienteRepository.AddAsync(cliente, cancellationToken);
+
                 return cliente.Id;
             }
         }

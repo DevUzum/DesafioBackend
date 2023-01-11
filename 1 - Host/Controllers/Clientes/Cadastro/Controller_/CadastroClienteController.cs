@@ -15,9 +15,11 @@ namespace DesafioBackend.Controllers.Clientes.Cadastro
         }
 
         [HttpPost]
-        public async Task<ActionResult<CadastroClienteResponseDto>> Post(CadastroClienteRequestDto clienteDto, CancellationToken cancellationToken)
+        public async Task<ActionResult<CadastroClienteResponseDto>> Post(
+            CadastroClienteRequestDto clienteDto, CancellationToken cancellationToken)
         {
-            var response = await _cadastroClienteService.CadastrarCliente(clienteDto, cancellationToken);
+            var response = await _cadastroClienteService.CadastrarCliente(
+                clienteDto, cancellationToken);
 
             return new CadastroClienteResponseDto() { Id = response };
         }

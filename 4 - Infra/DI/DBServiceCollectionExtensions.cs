@@ -1,9 +1,11 @@
 ﻿using DesafioBackend.Client.AwesomeApi;
 using DesafioBackend.Controllers.Clientes.Cadastro;
+using DesafioBackend.Controllers.Cotacoes.ObterCotacaoDolarComValor;
 using DesafioBackend.Cotacoes.ObterCotacaoDolar;
 using DesafioBackend.Interfaces;
 using DesafioBackend.Repositories;
 using DesafioBackend.Services.Clientes.Cadastro;
+using DesafioBackend.Services.Cotacoes.ObterCotacaoDolarComValor;
 
 namespace DesafioBackend.DI
 {
@@ -17,7 +19,6 @@ namespace DesafioBackend.DI
         private static void AddRepositories(IServiceCollection service)
         {
             //Cliente
-
             service.AddScoped(x =>
                 new CadastroClienteController(
                     x.GetService<ICadastroClienteService>()));
@@ -31,7 +32,6 @@ namespace DesafioBackend.DI
                     p.GetRequiredService<Context.DesafioBackendContext>()));
 
             //Cotacao
-
             service.AddScoped(x =>
                 new ObterCotacaoDolarController(
                      x.GetService<ICotacaoMoedaClient>(),
@@ -39,6 +39,15 @@ namespace DesafioBackend.DI
 
             service.AddScoped<ICotacaoMoedaClient>(p =>
                 new CotacaoMoedaClient());
+
+            service.AddScoped(x =>
+                new ObterCotacaoDolarComValorController(
+                     x.GetService<IObterCotacaoDolarComValorService>()));
+
+            service.AddScoped<IObterCotacaoDolarComValorService>(x =>
+                new ObterCotacaoDolarComValorService(
+                    x.GetService<ICotacaoMoedaClient>(),
+                    x.GetService<IClienteRepository>()));
 
         }
     }

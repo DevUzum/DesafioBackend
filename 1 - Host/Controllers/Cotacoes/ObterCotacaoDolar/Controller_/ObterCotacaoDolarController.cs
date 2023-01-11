@@ -11,7 +11,9 @@ namespace DesafioBackend.Cotacoes.ObterCotacaoDolar
         private readonly ICotacaoMoedaClient _cotacaoMoedaClient;
         private readonly IClienteRepository _clienteRepository;
 
-        public ObterCotacaoDolarController(ICotacaoMoedaClient cotacaoMoedaClient, IClienteRepository clienteRepository)
+        public ObterCotacaoDolarController(
+            ICotacaoMoedaClient cotacaoMoedaClient, 
+            IClienteRepository clienteRepository)
         {
             _cotacaoMoedaClient = cotacaoMoedaClient;
             _clienteRepository = clienteRepository;
@@ -28,7 +30,8 @@ namespace DesafioBackend.Cotacoes.ObterCotacaoDolar
 
             var cliente = _clienteRepository.ObterClientePorId(id);
 
-            var valorOriginal = Convert.ToDecimal(cotacao.Usdbrl.Bid, System.Globalization.CultureInfo.InvariantCulture);
+            var valorOriginal = Convert.ToDecimal(
+                cotacao.Usdbrl.Bid, System.Globalization.CultureInfo.InvariantCulture);
 
             if (cliente != null)
                 return new ObterCotacaoDolarResponseDto() 
