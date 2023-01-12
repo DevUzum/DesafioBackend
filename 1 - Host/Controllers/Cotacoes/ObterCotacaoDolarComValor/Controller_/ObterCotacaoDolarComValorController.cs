@@ -7,6 +7,9 @@ namespace DesafioBackend.Controllers.Cotacoes.ObterCotacaoDolarComValor
     [RouteTemplate("cliente")]
     public class ObterCotacaoDolarComValorController : ControllerBase
     {
+        private const string ProblemaParaRecuperarInformacoes = "Problema para recuperar informações";
+        private const string HouveUmProblemaAoConsultarAsInformacoes = "Houve um problema ao consultar as informações, por gentileza tente mais tarde.";
+
         private readonly IObterCotacaoDolarComValorService _obterCotacaoDolarComValorService;
 
         public ObterCotacaoDolarComValorController(
@@ -21,8 +24,17 @@ namespace DesafioBackend.Controllers.Cotacoes.ObterCotacaoDolarComValor
             [FromBody] ObterCotacaoDolarComValorRequestDto obterCotacaoDolarRequestDto,
             CancellationToken cancellationToken)
         {
-            return await _obterCotacaoDolarComValorService.ObterCotacaoDolarComValor(
+            var response = await _obterCotacaoDolarComValorService.ObterCotacaoDolarComValor(
                 id, obterCotacaoDolarRequestDto);
+
+            if (response.Cliente == null)
+                return NotFound(new ProblemDetails
+                {
+                    Title = ProblemaParaRecuperarInformacoes,
+                    Detail = HouveUmProblemaAoConsultarAsInformacoes
+                });
+
+            return response;
         }
     }
 }

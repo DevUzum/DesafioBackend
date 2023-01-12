@@ -13,7 +13,7 @@ namespace DesafioBackend.Services.Clientes.Cadastro
             _clienteRepository = clienteRepository;
         }
 
-        public async Task<Guid> CadastrarCliente(
+        public Guid CadastrarCliente(
             CadastroClienteRequestDto clienteDto, CancellationToken cancellationToken)
         {
             var clientesComMesmoEmail = _clienteRepository.ObterClientePorEmail(clienteDto.Email);
@@ -24,7 +24,7 @@ namespace DesafioBackend.Services.Clientes.Cadastro
             }
             else
             {
-                var cliente = await Cliente.Criar(
+                var cliente = Cliente.Criar(
                     Guid.NewGuid(), 
                     clienteDto.Nome, 
                     clienteDto.Email, 

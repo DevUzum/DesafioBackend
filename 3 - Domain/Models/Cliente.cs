@@ -19,7 +19,7 @@ namespace DesafioBackend.Models
         [Column(TypeName = "decimal(18,4)")]
         public decimal MultiplicadorBase { get; private set; }
 
-        public static async Task<Cliente> Criar(Guid id, string nome, string email, decimal multiplicadorBase)
+        public static Cliente Criar(Guid id, string nome, string email, decimal multiplicadorBase)
         {
             var cliente = new Cliente(id, nome, email, multiplicadorBase);
 

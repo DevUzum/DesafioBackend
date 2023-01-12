@@ -21,15 +21,15 @@ namespace DesafioBackend.Services.Cotacoes.ObterCotacaoDolarComValor
         public async Task<ObterCotacaoDolarComValorResponseDto> ObterCotacaoDolarComValor(
             Guid id, ObterCotacaoDolarComValorRequestDto obterCotacaoDolarRequestDto)
         {
-            var cotacao = await _cotacaoMoedaClient.ObterCotacaoDolar();
-
-            if (cotacao == null)
-                throw new Exception("Erro ao obter cotação");
-
             var cliente = _clienteRepository.ObterClientePorId(id);
 
             if (cliente == null)
-                throw new Exception("Cliente não encontrado");
+                return new ObterCotacaoDolarComValorResponseDto();
+
+            var cotacao = await _cotacaoMoedaClient.ObterCotacaoDolar();
+
+            if (cotacao == null)
+                return new ObterCotacaoDolarComValorResponseDto();
 
             var cotacaoDolar = Convert.ToDecimal(
                 cotacao.Usdbrl.Bid,

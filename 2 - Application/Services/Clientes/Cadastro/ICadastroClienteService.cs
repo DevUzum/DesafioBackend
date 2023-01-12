@@ -5,6 +5,6 @@ namespace DesafioBackend.Services.Clientes.Cadastro
 {
     public interface ICadastroClienteService
     {
-        Task<Guid> CadastrarCliente(CadastroClienteRequestDto clienteDto, CancellationToken cancellationToken);
+        Guid CadastrarCliente(CadastroClienteRequestDto clienteDto, CancellationToken cancellationToken);
     }
 }
