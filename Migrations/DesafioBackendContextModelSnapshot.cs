@@ -32,7 +32,7 @@ namespace DesafioBackend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("MultiplicadorBase")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("Nome")
                         .IsRequired()

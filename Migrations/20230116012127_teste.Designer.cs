@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DesafioBackend.Migrations
 {
     [DbContext(typeof(DesafioBackendContext))]
-    [Migration("20221214053814_primeiro")]
-    partial class primeiro
+    [Migration("20230116012127_teste")]
+    partial class teste
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,7 +35,7 @@ namespace DesafioBackend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("MultiplicadorBase")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
