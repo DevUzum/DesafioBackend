@@ -19,7 +19,7 @@ namespace DesafioBackend.Repositories
             _desafioBackendContext.SaveChanges();
         }
 
-        public Cliente? ObterClientePorId(Guid id)
+        public Cliente ObterClientePorId(Guid id)
         {
             return _desafioBackendContext.Clientes?
                 .Where(x => x.Id == id)
@@ -27,7 +27,7 @@ namespace DesafioBackend.Repositories
                 .FirstOrDefault();
         }
 
-        public Cliente? ObterClientePorEmail(string email)
+        public Cliente ObterClientePorEmail(string email)
         {
             return _desafioBackendContext.Clientes?
                 .Where(x => x.Email == email)

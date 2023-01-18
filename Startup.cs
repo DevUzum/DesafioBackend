@@ -15,7 +15,8 @@ namespace DesafioBackend
 
         public void ConfigureService(IServiceCollection services)
         {
-            services.AddControllers().AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<CadastroClienteRequestDto>());
+            services.AddControllers().AddFluentValidation(config => 
+                config.RegisterValidatorsFromAssemblyContaining<CadastroClienteRequestDto>());
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 

@@ -19,7 +19,7 @@ namespace DesafioBackend.Services.Cotacoes.ObterCotacaoDolarComValor
         }
 
         public async Task<ObterCotacaoDolarComValorResponseDto> ObterCotacaoDolarComValor(
-            Guid id, ObterCotacaoDolarComValorRequestDto obterCotacaoDolarRequestDto)
+            Guid id, ObterCotacaoDolarComValorRequestDto obterCotacaoDolarComValorRequestDto)
         {
             var cliente = _clienteRepository.ObterClientePorId(id);
 
@@ -35,7 +35,7 @@ namespace DesafioBackend.Services.Cotacoes.ObterCotacaoDolarComValor
                 cotacao.Usdbrl.Bid,
                 System.Globalization.CultureInfo.InvariantCulture);
 
-            return MapResonse(id, cliente, cotacaoDolar, obterCotacaoDolarRequestDto.ValorCotadoEmReais.Value);
+            return MapResonse(id, cliente, cotacaoDolar, obterCotacaoDolarComValorRequestDto.ValorCotadoEmReais.Value);
         }
 
         private static ObterCotacaoDolarComValorResponseDto MapResonse(

@@ -19,7 +19,7 @@ namespace DesafioBackend.Controllers.Clientes.Cadastro
             CadastroClienteRequestDto clienteDto, CancellationToken cancellationToken)
         {
             var response = _cadastroClienteService.CadastrarCliente(
-                    clienteDto, cancellationToken);
+                clienteDto, cancellationToken);
 
             return new CadastroClienteResponseDto() { Id = response };
         }

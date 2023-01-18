@@ -1,4 +1,5 @@
-﻿using DesafioBackend.Models;
+﻿using DesafioBackend.Builders;
+using DesafioBackend.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DesafioBackend.Context
@@ -11,5 +12,10 @@ namespace DesafioBackend.Context
         }
 
         public DbSet<Cliente> Clientes { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            new ClienteBuilder().Build(modelBuilder.Entity<Cliente>());
+        }
     }
 }
